@@ -21,6 +21,66 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     // une page contient un scaffold qui va permettre un empilement de widget
     return Scaffold(
+      // drawer : va permettre de mettre un menu dans l'application
+      drawer: Drawer(
+        child: ListView(
+        children: [
+          // Drawer header : va permettre de mettre une photo tel un avatar
+         DrawerHeader(
+           decoration: const BoxDecoration(color: Colors.blue),
+          child:Column(children: [
+          // On va empiler un texte et une photo
+          Text("Menu",style: TextStyle(fontFamily:"pacifico",fontSize: 20, color: Colors.white)),
+          SizedBox(
+            height: 100,
+            width: 100,
+            child: CircleAvatar(backgroundImage: AssetImage('images/abc.png')),
+          )   
+         ],
+        
+         )),
+         // on définit une tuile qui va etre un onglet de notre menu
+         ListTile(
+          // on définit une cellule pour notre section dans row (icone + texte)
+          title: Row(
+            children: [
+              Icon(Icons.abc_outlined,size: 26,color: Colors.black,),
+              Padding(
+                padding: const EdgeInsets.only(left: 10),
+                child: Text("Analyser"),
+              ),
+            ],
+          ),
+
+         ),
+          ListTile(
+           title: Row(
+            children: [
+              Icon(Icons.history,size: 26,color: Colors.black,),
+              Padding(
+                padding: const EdgeInsets.only(left: 10),
+                child: Text("Historique"),
+              ),
+            ],
+          ),
+
+         ),
+          ListTile(
+           title: Row(
+            children: [
+              Icon(Icons.info,size: 26,color: Colors.black,),
+              Padding(
+                padding: const EdgeInsets.only(left: 10),
+                child: Text("A propos"),
+              ),
+            ],
+          ),
+
+         ),
+         ///////
+
+        ],
+      ),),
       appBar: AppBar(
         // sous windows pour centrer le titre dans 
         //l'appBar  il faut rajouter la propriété : centerTitle: true,
@@ -57,6 +117,7 @@ class _HomePageState extends State<HomePage> {
             decoration: InputDecoration(
               // hintText - equivalent d'un placeholder ( information à l'utilisateur)
               hintText:"Entrez votre mot",
+            
               // border pour spécifier la bordurer de notre champ de saisie
               border: OutlineInputBorder(borderRadius:BorderRadius.circular(20))
             ) ,
