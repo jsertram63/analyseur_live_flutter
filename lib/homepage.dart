@@ -8,11 +8,167 @@ import 'package:flutter/material.dart';
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
 
+
+  
+
   @override
   State<HomePage> createState() => _HomePageState();
 }
 
 class _HomePageState extends State<HomePage> {
+
+    // définition d'un controller qui va observer l'évolution de notre champs de saisi
+    late TextEditingController saisieController;
+
+  
+
+
+    // On va initialiser notre controleur dans le initState
+    @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    // instancier le controller - réserve l'espace mémoire
+    saisieController = TextEditingController();
+    saisieController.addListener(_ecouteurText); // <---- on branche notre écouteur
+  }
+
+  // définition de notre fonction d'écoute
+  void _ecouteurText(){
+      // on passe ici quand on va saisir du texte
+      print("passage dans fonction ecouteurs");
+      setState(() {
+        motSaisi = saisieController.text;
+        print(saisieController.text);
+      });
+  }
+
+
+  void _analyserMot(){
+    print("Analyse mot");
+    // la strategie : parcourir notre chaine de caractère , les caractères les uns apres les autres 
+    // on va dans le bon cas : switch
+    _resetDico();
+    motSaisi = motSaisi.toLowerCase();
+    
+    print(motSaisi);
+    for(var i=0; i<motSaisi.length;i++){
+        // un switch pour incrémenter la bonne lettre dans notre voyelleDico
+        switch(motSaisi[i]){
+           case 'a': 
+                incremente(motSaisi[i]);
+                print("a"); // _incrementeA()
+            break;
+           case 'e': print("e"); 
+           incremente(motSaisi[i]);// _incremnenteE
+            break;
+            incremente(motSaisi[i]);
+            case 'i': print("i");
+            break;
+            incremente(motSaisi[i]);
+            case 'o': print("o");
+            incremente(motSaisi[i]);
+            break;
+            case 'u': print("u");
+            incremente(motSaisi[i]);
+            break;
+            case 'y':print("y");
+            incremente(motSaisi[i]);
+            break;
+            default: print("consonnes");
+            nbConsonnes++;
+
+          
+
+        }
+    }
+    print(voyelleDico);
+    print('$nbConsonnes consonnes');
+  }
+
+
+    // définition de notre map ayant pour clé un string (notre voyelle) et valeur : un entier (le nombre d'occurences)
+    Map <String,int> voyelleDico = {'a':0,'e':0,'i':0,'o':0,'u':0,"y":0};
+    int nbConsonnes = 0;
+
+  // reset : remise à zero de notre map
+  void _resetDico(){
+    nbConsonnes = 0;
+    // on va parcourir notre voyelleDico pour remettre à zero
+    setState(() {
+      voyelleDico.forEach((key, value) { // 'a':9 , 'e':2
+          voyelleDico[key] = 0;
+      });
+    });
+  }
+
+
+  // fonction qui incrémente A
+  /*
+  void _incrementeA(){
+    setState(() {
+      // on va récupérer la valeur courante dans notre dictionne voyelleDico
+      int? valeur = voyelleDico['a'];
+      valeur = valeur! + 1; // le point d'exclamation va déballer la variable
+      voyelleDico['a'] = valeur;
+    });
+  }
+
+  // fonction qui incrémente E
+    void _incrementeE(){
+    setState(() {
+      // on va récupérer la valeur courante dans notre dictionne voyelleDico
+      int? valeur = voyelleDico['e'];
+      valeur = valeur! + 1; // le point d'exclamation va déballer la variable
+      voyelleDico['e'] = valeur;
+    });
+  }
+
+  // fonction qui incrémente i 
+    void _incrementeI(){
+    setState(() {
+      // on va récupérer la valeur courante dans notre dictionne voyelleDico
+      int? valeur = voyelleDico['i'];
+      valeur = valeur! + 1; // le point d'exclamation va déballer la variable
+      voyelleDico['i'] = valeur;
+    });
+  }
+
+    // fonction qui incrémente O
+      void _incrementeO(){
+    setState(() {
+      // on va récupérer la valeur courante dans notre dictionne voyelleDico
+      int? valeur = voyelleDico['o'];
+      valeur = valeur! + 1; // le point d'exclamation va déballer la variable
+      voyelleDico['o'] = valeur;
+    });
+  }
+
+  // fonction qui incrémente U
+      void _incrementeU(){
+    setState(() {
+      // on va récupérer la valeur courante dans notre dictionne voyelleDico
+      int? valeur = voyelleDico['u'];
+      valeur = valeur! + 1; // le point d'exclamation va déballer la variable
+      voyelleDico['u'] = valeur;
+    });
+  }
+      void _incrementeY(){
+    setState(() {
+      // on va récupérer la valeur courante dans notre dictionne voyelleDico
+      int? valeur = voyelleDico['y'];
+      valeur = valeur! + 1; // le point d'exclamation va déballer la variable
+      voyelleDico['y'] = valeur;
+    });
+  }*/
+
+  void incremente(String charac){
+    setState(() {
+      int? valeur = voyelleDico[charac];
+      valeur = valeur! + 1;
+      voyelleDico[charac] = valeur;
+    });
+  }
 
 
   String motSaisi = "";
@@ -122,7 +278,8 @@ class _HomePageState extends State<HomePage> {
               border: OutlineInputBorder(borderRadius:BorderRadius.circular(20))
             ) ,
             // le comportement de notre textField
-            onChanged: (newValue){
+            // 1ere méthode pour controller le champs de saisie
+            /*onChanged: (newValue){
               // pour mettre à jour notre notre variable d'état qui va stocker le mot saisi
               // si on oublie setState , la variable ne va pas être changer
               setState(() {
@@ -133,7 +290,9 @@ class _HomePageState extends State<HomePage> {
                 print("Mot saisi : $motSaisi");
 
               });
-            },
+            },*/
+            // 2 eme méthode pour controller le champs de saisi
+            controller: saisieController,
 
           ),
         
@@ -144,12 +303,29 @@ class _HomePageState extends State<HomePage> {
        // sinon on affiche rien 
        motSaisi.isNotEmpty ? Text(
         "mot saisi est : $motSaisi",
-        ) : const Text("")
+        ) : const Text(""),
+        // on définit un bouton
+        // _analyserMot (fonction qui va anlyser le mot)
+        ElevatedButton(onPressed: _analyserMot, child: const Text("Analyser",
+        style: TextStyle(fontFamily:"pacifico",fontSize: 20),),
+        style: ButtonStyle(
+          backgroundColor: MaterialStateProperty.all(Colors.blue),
+          padding: MaterialStateProperty.all(const EdgeInsets.all(10)),
+          textStyle: MaterialStateProperty.all(const TextStyle(fontFamily:"pacifico",fontSize: 30))
+        ),
+        ),
+    
 
-      ],)
+      ],
+      
+      )
 
     );
   }
+   
+
 }
+
+
 
 
