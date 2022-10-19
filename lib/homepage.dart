@@ -1,4 +1,5 @@
 // importation du package pour construire notre page - ce package contient les patrons (template) des widgets
+import 'package:analyseur_live_flutter_5octobre/rowVoyelle.dart';
 import 'package:flutter/material.dart';
 
 // création du widget homePage
@@ -20,9 +21,6 @@ class _HomePageState extends State<HomePage> {
     // définition d'un controller qui va observer l'évolution de notre champs de saisi
     late TextEditingController saisieController;
 
-  
-
-
     // On va initialiser notre controleur dans le initState
     @override
   void initState() {
@@ -40,7 +38,7 @@ class _HomePageState extends State<HomePage> {
       setState(() {
         motSaisi = saisieController.text;
         print(saisieController.text);
-      });
+     });
   }
 
 
@@ -77,13 +75,10 @@ class _HomePageState extends State<HomePage> {
             break;
             default: print("consonnes");
             nbConsonnes++;
-
-          
-
         }
     }
     print(voyelleDico);
-    print('$nbConsonnes consonnes');
+    print('$nbConsonnes co@nsonnes');
   }
 
 
@@ -163,11 +158,11 @@ class _HomePageState extends State<HomePage> {
   }*/
 
   void incremente(String charac){
-    setState(() {
+   // setState(() {
       int? valeur = voyelleDico[charac];
       valeur = valeur! + 1;
       voyelleDico[charac] = valeur;
-    });
+ //   });
   }
 
 
@@ -314,6 +309,35 @@ class _HomePageState extends State<HomePage> {
           textStyle: MaterialStateProperty.all(const TextStyle(fontFamily:"pacifico",fontSize: 30))
         ),
         ),
+       
+        Padding(
+          padding: const EdgeInsets.all(8.0),
+          // on va récupéré le nombre d'occurences dans la map
+          // on va faire une string interpolation
+          child: RowVoyelle(letter:"a", colorRow: Colors.red,textOccurences: "${voyelleDico["a"].toString()} occurences")
+        ),
+         Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: RowVoyelle(letter:"e", colorRow: Colors.red,textOccurences: "${voyelleDico["e"].toString()} occurences"),
+        ),
+         Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: RowVoyelle(letter:"i", colorRow: Colors.green,textOccurences: "${voyelleDico["i"].toString()} occurences"),
+        ),
+         Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: RowVoyelle(letter:"o", colorRow: Colors.yellow,textOccurences: "${voyelleDico["o"].toString()} occurences")
+        ),
+         Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: RowVoyelle(letter:"u", colorRow: Colors.purple,textOccurences: "${voyelleDico["u"].toString()} occurences"),
+        ),
+         Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: RowVoyelle(letter:"y", colorRow: Colors.cyan,textOccurences: "${voyelleDico["y"].toString()} occurences"),
+        ),
+      
+      
     
 
       ],
