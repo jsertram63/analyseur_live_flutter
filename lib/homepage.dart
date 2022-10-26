@@ -60,8 +60,9 @@ class _HomePageState extends State<HomePage> {
            case 'e': print("e"); 
            incremente(motSaisi[i]);// _incremnenteE
             break;
-            incremente(motSaisi[i]);
+          
             case 'i': print("i");
+              incremente(motSaisi[i]);
             break;
             incremente(motSaisi[i]);
             case 'o': print("o");
@@ -78,6 +79,7 @@ class _HomePageState extends State<HomePage> {
         }
     }
     print(voyelleDico);
+   // print("voyelleDico[\"a\"]");
     print('$nbConsonnes co@nsonnes');
   }
 
@@ -314,28 +316,36 @@ class _HomePageState extends State<HomePage> {
           padding: const EdgeInsets.all(8.0),
           // on va récupéré le nombre d'occurences dans la map
           // on va faire une string interpolation
-          child: RowVoyelle(letter:"a", colorRow: Colors.red,textOccurences: "${voyelleDico["a"].toString()} occurences")
-        ),
+          child:(voyelleDico['a'] == 0) ? null :  RowVoyelle(letter:"a", colorRow: Colors.red,textOccurences: (voyelleDico['a'] == 1)
+? '${voyelleDico["a"]} occurence'
+: '${voyelleDico["a"]} occurences')),
          Padding(
           padding: const EdgeInsets.all(8.0),
-          child: RowVoyelle(letter:"e", colorRow: Colors.red,textOccurences: "${voyelleDico["e"].toString()} occurences"),
-        ),
+          child:(voyelleDico['e'] == 0) ? null :  RowVoyelle(letter:"e", colorRow: Colors.green,textOccurences: (voyelleDico['e'] == 1)
+? '${voyelleDico["e"]} occurence'
+: '${voyelleDico["e"]} occurences')),
+        
          Padding(
           padding: const EdgeInsets.all(8.0),
-          child: RowVoyelle(letter:"i", colorRow: Colors.green,textOccurences: "${voyelleDico["i"].toString()} occurences"),
-        ),
+          child:(voyelleDico['i'] == 0) ? null :  RowVoyelle(letter:"i", colorRow: Colors.blue,textOccurences: (voyelleDico['i'] == 1)
+? '${voyelleDico["i"]} occurence'
+: '${voyelleDico["i"]} occurences')),
          Padding(
           padding: const EdgeInsets.all(8.0),
-          child: RowVoyelle(letter:"o", colorRow: Colors.yellow,textOccurences: "${voyelleDico["o"].toString()} occurences")
-        ),
+          child: (voyelleDico['o'] == 0) ? null :  RowVoyelle(letter:"o", colorRow: Colors.purple,textOccurences: (voyelleDico['o'] == 1)
+? '${voyelleDico["o"]} occurence'
+: '${voyelleDico["o"]} occurences')),
          Padding(
           padding: const EdgeInsets.all(8.0),
-          child: RowVoyelle(letter:"u", colorRow: Colors.purple,textOccurences: "${voyelleDico["u"].toString()} occurences"),
-        ),
+          child: (voyelleDico['u'] == 0) ? null :  RowVoyelle(letter:"u", colorRow: Colors.deepOrange,textOccurences: (voyelleDico['u'] == 1)
+? '${voyelleDico["u"]} occurence'
+: '${voyelleDico["u"]} occurences')),
          Padding(
           padding: const EdgeInsets.all(8.0),
-          child: RowVoyelle(letter:"y", colorRow: Colors.cyan,textOccurences: "${voyelleDico["y"].toString()} occurences"),
-        ),
+          child:(voyelleDico['y'] == 0) ? null :  RowVoyelle(letter:"y", colorRow: Colors.indigo,textOccurences: (voyelleDico['y'] == 1)
+? '${voyelleDico["y"]} occurence'
+: '${voyelleDico["y"]} occurences')),
+        
       
       
     
